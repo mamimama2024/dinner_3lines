@@ -8,11 +8,38 @@
 <body>
     <h1>トップページ</h1>
     <% if user_signed_in? %>
-       ログインしています
+       <%= "#{current_user.nickname}さんはログインしています" %>
        <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
+      <div>
+      <%= link_to "レシピ投稿", new_recipe_path %>
+      </div>
     <% else %>  
       <%= link_to "新規登録", new_user_registration_path %>
       <%= link_to "ログイン", new_user_session_path %>
     <% end %>
+    <h2>レシピ一覧</h2>
+<div style="width: 1700px; display: flex; justify-content: space-around">
+<% @recipes.each do |recipe| %>
+<div style="width: 300px;">
+<% if recipe.url.present? %>
+    <ul><%= link_to Recipe.fetch_ogp_info(recipe.url)[:title], recipe_path(recipe.id) %></ul>
+    <!-- <ul><%= Recipe.fetch_ogp_info(recipe.url)[:description] %></ul> -->
+      <% if Recipe.fetch_ogp_info(recipe.url)[:image_url].present? %>
+        <%= link_to recipe_path(recipe.id) do %>
+          <img src="<%= Recipe.fetch_ogp_info(recipe.url)[:image_url] %>" alt="OGP Image" style="width: 300px; height: auto;">
+        <% end %>
+      <% end %>
+<% else %>
+      <p><%= link_to recipe.title, recipe_path(recipe.id) %></p>
+      <p><%= recipe.item %></p>
+      <p><%= recipe.url %></p>
+<% end %>
+      <p><%= recipe.step.encode("UTF-8") %></p>
+      <p><%= recipe.note %></p>
+</div>
+  <% end %>
+</div>
+
+    <h2>マイボード</h2>
 </body>
 </html>

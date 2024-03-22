@@ -1,0 +1,13 @@
+<h1>レシピ投稿ページ</h1>
+<%= form_with(model: @recipe, local: true) do |f| %>
+
+<%#= render 'shared/error_messages', object: @recipe %>
+<%#= f.file_field :image, id:"recipe-image" %>
+<%= f.text_field :title, class:"title-input", id:"recipe-price", placeholder:"料理名" %><br>
+<%= f.text_field :url, class:"url-input", id:"recipe-price", placeholder:"URL（任意）" %><br>
+<%= f.text_field :item, class:"recipes-text", id:"recipe-note", placeholder:"材料" %><br>
+<%= f.text_area :step, class:"recipes-text", id:"recipe-step", placeholder:"作り方。なるべく３行までにまとめられるものがおすすめ。", maxlength:"40" %><br>
+<%= f.text_area :note, class:"recipes-text", id:"recipe-note", placeholder:"レシピの説明（任意）" ,rows:"7" ,maxlength:"1000" %><br>
+<%= f.submit "投稿する" ,class:"sell-btn" %><br>
+<%=link_to 'もどる', root_path, class:"back-btn" %>
+  <% end %>

@@ -1,0 +1,19 @@
+<h1>レシピ詳細ページ</h1>
+<li class="list">
+  <% if @url.present? %>
+    <ul><%= link_to @ogp_info[:title], @url, target: :_blank, rel: "noopener noreferrer" %></ul>
+    <ul><%= @ogp_info[:description] %></ul>
+      <% if @ogp_info[:image_url].present? %>
+        <%= link_to @url, target: :_blank, rel: "noopener noreferrer" do %>
+          <img src="<%= @ogp_info[:image_url] %>" alt="OGP Image">
+        <% end %>
+      <% end %>
+  <% else %>
+    <ul><%= @recipe.title %></ul>
+  <% end %> 
+    <ul><%= @recipe.item %></ul>
+    <ul><%= @recipe.url %></ul>
+    <ul><%= @recipe.step %></ul>
+    <ul><%= @recipe.note %></ul>
+</li>
+<%= link_to "前のページに戻る", :back  %>
